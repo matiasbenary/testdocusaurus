@@ -13,11 +13,16 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # Aquí irían los pasos para realizar el build, por ejemplo, si estás usando Node.js:
       - name: Install dependencies and build
         run: |
           npm install
           npm run build -- --locale=en
+      
+      - name: Update branch
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git pull origin build --ff-only
 
       - name: Push to another repository
         uses: ad-m/github-push-action@master
