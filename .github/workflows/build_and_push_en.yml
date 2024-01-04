@@ -14,20 +14,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: build 
-
+          
       - name: Install dependencies and build
         run: |
           npm install
           npm run build -- --locale=en
-      
-      - name: Merge master into build
-        run: git merge origin/master
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build with locale set to 'en'
-        run: npm run build -- --locale=en
 
       - name: Commit build
         run: |
