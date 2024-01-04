@@ -1,0 +1,36 @@
+name: Build and Push Es
+
+on:
+  push:
+    branches:
+      - main
+      
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+        with:
+          ref: build 
+          
+      - name: Install dependencies and build
+        run: |
+          npm install
+          npm run crowdin:sync
+          npm run build -- --locale=es
+
+      - name: Commit build
+        run: |
+          git config --local user.email "builder@example.com"
+          git config --local user.name "Builder"
+          git add -f ./build
+          git commit -m "Add build" 
+
+      - name: Push to another repository
+        uses: ad-m/github-push-action@master
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: build
+          repository: matiasbenary/testdocusaurus
