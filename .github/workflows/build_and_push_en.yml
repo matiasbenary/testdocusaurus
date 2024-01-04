@@ -22,6 +22,8 @@ jobs:
 
       - name: Commit build
         run: |
+          git config --local user.email "builder@example.com"
+          git config --local user.name "Builder"
           git add -f ./build
           git commit -m "Add build" 
 
