@@ -20,6 +20,8 @@ jobs:
           npm install
           npm run crowdin:sync
           npm run build -- --locale=es
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ CROWDIN.CROWDIN_PERSONAL_TOKEN }}
 
       - name: Commit build
         run: |
