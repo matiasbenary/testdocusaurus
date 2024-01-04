@@ -20,6 +20,8 @@ jobs:
           npm install
           npm run crowdin:sync
           npm run build -- --locale=es
+        env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
 
       - name: Commit build
         run: |
@@ -34,5 +36,3 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: build
           repository: matiasbenary/testdocusaurus
-    env:
-          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
