@@ -22,7 +22,7 @@ jobs:
 
       - name: Commit build
         run: |
-          git add ./build
+          git add -f ./build
           git commit -m "Add build" 
 
       - name: Push to another repository
