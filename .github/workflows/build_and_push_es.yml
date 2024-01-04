@@ -34,3 +34,5 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           branch: build
           repository: matiasbenary/testdocusaurus
+    env:
+          CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
