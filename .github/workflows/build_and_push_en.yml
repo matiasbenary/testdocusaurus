@@ -15,9 +15,9 @@ jobs:
         with:
           ref: build 
 
-      - name: Merge master
+      - name: Merge main
         run: |
-            git merge master   
+            git merge main   
           
       - name: Install dependencies and build
         run: |
