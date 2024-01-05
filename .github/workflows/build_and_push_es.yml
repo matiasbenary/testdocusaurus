@@ -18,8 +18,8 @@ jobs:
       - name: Install dependencies and build
         run: |
           npm install
-          npm run crowdin:sync
-          npm run build -- --locale=es
+          npm run crowdin:download
+          npm run build
         env:
           CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
           API_TOKEN_ENV: ${{ secrets.API_TOKEN_ENV }}

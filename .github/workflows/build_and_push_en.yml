@@ -17,8 +17,12 @@ jobs:
           
       - name: Install dependencies and build
         run: |
-          npm install
-          npm run build -- --locale=en
+            npm install
+            npm run build -- --locale=en
+            npm run crowdin:upload
+        env:
+            CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+            API_TOKEN_ENV: ${{ secrets.API_TOKEN_ENV }}
 
       - name: Commit build
         run: |
