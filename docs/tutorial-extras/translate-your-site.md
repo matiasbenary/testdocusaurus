@@ -4,7 +4,7 @@ sidebar_position: 2
 
 # Translate your site
 
-Let's translate `docs/intro.md` to French.
+Let's translate `docs/intro.md` to French.For example
 
 ## Configure i18n
 
