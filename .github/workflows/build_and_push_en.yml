@@ -10,15 +10,13 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
-        with:
-          ref: build 
-
-      - name: Merge main
+      - name: Merge master back to dev
         run: |
-            git merge main   
-          
+            git fetch --unshallow
+            git checkout build
+            git pull
+            git merge --no-ff main -m "Auto-merge main back to build"
+
       - name: Install dependencies and build
         run: |
             npm install
@@ -32,11 +30,5 @@ jobs:
       - name: Commit build
         run: |
           git add -f ./build
-          git commit -m "Add build" 
-
-      - name: Push to another repository
-        uses: ad-m/github-push-action@master
-        with:
-          github_token: ${{ secrets.GITHUB_TOKEN }}
-          branch: build
-          repository: matiasbenary/testdocusaurus
+          git commit -m "Add build"
+          git push
