@@ -14,20 +14,23 @@ jobs:
         uses: actions/checkout@v2
         with:
           ref: build 
+
+      - name: Merge master
+        run: |
+            git merge master   
           
       - name: Install dependencies and build
         run: |
             npm install
             npm run build -- --locale=en
-            npm run crowdin:upload
+            npm run crowdin:update
         env:
             CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
             API_TOKEN_ENV: ${{ secrets.API_TOKEN_ENV }}
+            API_TOKEN: ${{ secrets.API_TOKEN_ENV }}
 
       - name: Commit build
         run: |
-          git config --local user.email "builder@example.com"
-          git config --local user.name "Builder"
           git add -f ./build
           git commit -m "Add build" 
 
