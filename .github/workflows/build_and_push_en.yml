@@ -6,7 +6,7 @@ on:
       - main
       
 jobs:
-  build-and-push:
+  build-and-push-en:
     runs-on: ubuntu-latest
 
     steps:
@@ -37,5 +37,42 @@ jobs:
       - name: Commit build
         run: |
           git add -f ./build
-          git commit -m "Add build"
+          git commit -m "Merge with master"
+          git push
+
+
+
+  build-and-push-es:
+    needs: build-and-push-en
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set Git config
+        run: |
+            git config --local user.email "actions@github.com"
+            git config --local user.name "Github Actions"
+
+      - name: Merge master back to dev
+        run: |
+            git fetch --unshallow
+            git checkout build
+            git pull
+
+      - name: Install dependencies and build
+        run: |
+            npm install
+            npm run crowdin download
+            npm run build
+
+        env:
+            CROWDIN_PERSONAL_TOKEN: ${{ secrets.CROWDIN_PERSONAL_TOKEN }}
+            API_TOKEN_ENV: ${{ secrets.API_TOKEN_ENV }}
+            API_TOKEN: ${{ secrets.API_TOKEN_ENV }}
+
+      - name: Commit build
+        run: |
+          git add -f ./build
+          git commit -m "add new build"
           git push
